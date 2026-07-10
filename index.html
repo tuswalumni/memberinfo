@@ -1,30 +1,242 @@
 <!DOCTYPE html>
-<html lang="th">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ข้อมูลสมาชิกสมาคมนักศึกษาเก่าสังคมสงเคราะห์ศาสตร์ มธ.</title> <link rel="icon" type="image/png" href="https://img5.pic.in.th/file/secure-sv1/cropped_circle_image09cc9731529109e7.png">
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            overflow: hidden; /* ป้องกัน Scrollbar ซ้อน */
-        }
-        iframe {
-            display: block;
-            width: 100%;
-            height: 100vh; /* ความสูงเต็มหน้าจอ */
-            border: none;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>ข้อมูลสมาชิก | สมาคมนักศึกษาเก่าสังคมสงเคราะห์ศาสตร์ มธ.</title><link rel="icon" type="image/png" href="https://img5.pic.in.th/file/secure-sv1/cropped_circle_image09cc9731529109e7.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Sarabun', sans-serif; background-color: #f8fafc; }
+    .animate-fadeIn { animation: fadeIn 0.4s ease-out forwards; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .hidden { display: none; }
+  </style>
 </head>
-<body>
+<body class="bg-gray-50 flex flex-col min-h-screen">
 
-    <iframe 
-        src="https://script.google.com/macros/s/AKfycbwBqeqG9yu5y-PCKjr5hbgevTuKVjS9oDNbDFCbhxwvj4GX4jDSNEk9tKyOh3qw-J2h/exec?page=member_info" 
-        allow="fullscreen">
-    </iframe>
+  <nav class="bg-red-800 text-white shadow-lg sticky top-0 z-50">
+    <div class="container mx-auto px-4 flex items-center justify-between h-20">
+      <a href="https://members.tuswalumni.com/" class="flex items-center space-x-3 cursor-pointer">
+        <img src="https://img2.pic.in.th/cropped_circle_image4abd3ce094449065.png" class="w-12 h-12 bg-white rounded-full p-0.5 shadow-md">
+        <div class="leading-tight">
+          <p class="font-bold text-lg hidden md:block uppercase tracking-tight">สมาคมนักศึกษาเก่าสังคมสงเคราะห์ศาสตร์ มธ.</p>
+        </div>
+      </a>
+      <div class="flex space-x-1 md:space-x-2 overflow-x-auto pb-2 md:pb-0">
+        <a href="https://members.tuswalumni.com/" class="flex-shrink-0 flex items-center px-4 py-2 rounded-lg text-red-100 hover:bg-red-700 hover:text-white font-bold transition-all text-sm">หน้าสมัครสมาชิก</a>
+        <a href="https://members.tuswalumni.com/?page=objection" class="flex-shrink-0 flex items-center px-4 py-2 rounded-lg text-red-100 hover:bg-red-700 hover:text-white font-bold transition-all text-sm">ประกาศรายชื่อ</a>
+        <a href="https://members.tuswalumni.com/payment" class="flex-shrink-0 flex items-center px-4 py-2 rounded-lg text-red-100 hover:bg-red-700 hover:text-white font-bold transition-all text-sm">แจ้งชำระเงิน</a>
+        <a href="https://members.tuswalumni.com/memberinfo" class="flex-shrink-0 flex items-center px-4 py-2 rounded-lg bg-red-700 text-white font-bold transition-all text-sm">ข้อมูลสมาชิก</a>
+        <a href="https://members.tuswalumni.com/renew" class="flex-shrink-0 flex items-center px-4 py-2 rounded-lg text-red-100 hover:bg-red-700 hover:text-white font-bold transition-all text-sm">ต่ออายุ</a>
+      </div>
+    </div>
+  </nav>
 
+  <main class="flex-grow container mx-auto px-4 py-12 max-w-4xl">
+    <div id="page-member_info" class="animate-fadeIn max-w-4xl mx-auto px-4 py-12">
+        <div class="text-center mb-10 space-y-2">
+            <h1 class="text-4xl font-extrabold text-slate-800 tracking-tight">ตรวจสอบข้อมูลสมาชิก</h1>
+            <p class="text-slate-500 text-base font-medium max-w-lg mx-auto">
+                กรอกเลขบัตรประจำตัวประชาชน 13 หลัก เพื่อดูสถานะสมาชิก วันหมดอายุ และปรับปรุงข้อมูลส่วนตัว
+            </p>
+        </div>
+
+        <div class="bg-white p-8 md:p-10 rounded-[2.5rem] shadow-2xl border border-slate-100 relative overflow-hidden group">
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-32 h-32 bg-gradient-to-br from-slate-100 to-slate-200 rounded-full opacity-50 blur-2xl group-hover:scale-150 transition-transform duration-700 pointer-events-none"></div>
+            <div class="relative z-10 flex flex-col md:flex-row gap-4 items-stretch">
+                <div class="flex-grow relative group/input">
+                    <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none text-slate-400"><i data-lucide="credit-card" class="w-6 h-6"></i></div>
+                    <input type="text" id="infoSearchId" maxlength="13" oninput="this.value = this.value.replace(/[^0-9]/g, '')" onkeydown="if(event.key==='Enter') searchMemberInfo()" placeholder="เลขประจำตัวประชาชน (ไม่ต้องใส่ขีด)" class="w-full pl-14 pr-4 py-4 bg-slate-50 border-2 border-slate-200 rounded-2xl font-bold text-slate-700 placeholder-slate-400 text-lg outline-none focus:bg-white focus:border-slate-800 focus:ring-4 focus:ring-slate-100 transition-all shadow-inner">
+                </div>
+                <button onclick="searchMemberInfo()" class="flex items-center justify-center gap-2 bg-slate-900 hover:bg-black text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all shadow-lg hover:shadow-slate-500/30 transform hover:-translate-y-1 active:scale-95 whitespace-nowrap">
+                    <i data-lucide="search" class="w-5 h-5"></i><span>ค้นหา</span>
+                </button>
+            </div>
+            <div class="mt-8 flex flex-wrap justify-center gap-4 text-xs font-bold text-slate-400 uppercase tracking-widest">
+                <div class="flex items-center gap-2 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-100"><i data-lucide="check-circle" class="w-3 h-3 text-emerald-500"></i> เช็คสถานะ</div>
+                <div class="flex items-center gap-2 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-100"><i data-lucide="calendar" class="w-3 h-3 text-amber-500"></i> ดูวันหมดอายุ</div>
+                <div class="flex items-center gap-2 bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-100"><i data-lucide="file-clock" class="w-3 h-3 text-blue-500"></i> ปรับปรุงข้อมูลส่วนตัว</div>
+            </div>
+        </div>
+
+        <div id="infoDisplayArea" class="hidden space-y-8 animate-fadeIn mt-8">
+            <div id="statusSummaryCard" class="bg-white p-8 rounded-[2.5rem] shadow-xl border-t-8 border-slate-800"></div>
+            <div id="updateInfoFormArea"></div>
+        </div>
+    </div>
+  </main>
+
+  <footer class="bg-gray-900 text-gray-400 py-10 border-t-4 border-yellow-500 text-center mt-auto">
+    <div class="container mx-auto px-4">
+      <p class="text-white font-bold mb-1 tracking-wide uppercase font-black italic">สมาคมนักศึกษาเก่าสังคมสงเคราะห์ศาสตร์ มหาวิทยาลัยธรรมศาสตร์</p>
+      <p class="text-[10px] uppercase font-bold italic opacity-40 tracking-widest">&copy; 2026 TU SOCIAL ADMINISTRATION ALUMNI ASSOCIATION. ALL RIGHTS RESERVED.</p>
+    </div>
+  </footer>
+
+  <script>
+    const API_URL = "https://script.google.com/macros/s/AKfycbwBqeqG9yu5y-PCKjr5hbgevTuKVjS9oDNbDFCbhxwvj4GX4jDSNEk9tKyOh3qw-J2h/exec";
+    async function callAPI(action, payload = {}) {
+      try {
+        const response = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, redirect: 'follow', body: JSON.stringify({ action: action, payload: payload }) });
+        const data = await response.json();
+        if (data.success === false || data.status === "error") throw new Error(data.message || "เกิดข้อผิดพลาดจากระบบ");
+        return data;
+      } catch (error) { throw error; }
+    }
+
+    let currentMemberData = null;
+    window.addEventListener('DOMContentLoaded', () => lucide.createIcons());
+
+    async function searchMemberInfo() {
+      const id = document.getElementById('infoSearchId').value.trim();
+      if(id.length !== 13) return Swal.fire('เตือน', 'กรุณากรอกเลขบัตร 13 หลัก', 'warning');
+      
+      Swal.fire({ title: 'กำลังดึงข้อมูล...', didOpen: () => Swal.showLoading() });
+      try {
+        const res = await callAPI('getMemberDataForInfo', { idCard: id });
+        Swal.close();
+        currentMemberData = res; 
+        document.getElementById('infoDisplayArea').classList.remove('hidden');
+        renderInfoForm(res);
+      } catch (err) {
+        document.getElementById('infoDisplayArea').classList.add('hidden');
+        Swal.fire('ไม่พบข้อมูล', err.message, 'error');
+      }
+    }
+
+    function renderInfoForm(m) {
+        const statusColor = (m.status === 'สมาชิกสมบูรณ์') ? 'text-emerald-600 bg-emerald-50 border-emerald-100' : 
+                            (m.status === 'หมดอายุ') ? 'text-red-600 bg-red-50 border-red-100' : 'text-amber-600 bg-amber-50 border-amber-100';
+
+        document.getElementById('statusSummaryCard').innerHTML = `
+            <div class="mb-10 flex flex-col items-center">
+                <p class="text-xs font-black text-slate-400 uppercase tracking-widest mb-4">บัตรสมาชิกดิจิทัลของท่าน</p>
+                <div class="relative group w-full max-w-md">
+                    <canvas id="infoMemberCardCanvas" width="600" height="350" class="w-full rounded-[2rem] shadow-2xl border-4 border-white"></canvas>
+                    <button onclick="downloadInfoCard()" class="absolute -bottom-5 right-1/2 translate-x-1/2 bg-slate-800 text-white px-6 py-2 rounded-full font-bold text-sm shadow-lg hover:bg-black transition-all flex items-center gap-2 transform hover:-translate-y-1">
+                        <i data-lucide="download" class="w-4 h-4"></i> บันทึกรูปภาพ
+                    </button>
+                </div>
+            </div>
+
+            <div class="bg-slate-50/50 p-6 rounded-3xl border border-slate-100">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">ข้อมูลในระบบ</p>
+                        <h2 class="text-2xl font-black text-slate-800 mt-1">${m.name}</h2>
+                        <p class="font-bold text-slate-500 flex items-center gap-2 mt-1 text-sm"><i data-lucide="credit-card" class="w-4 h-4"></i> ${m.id}</p>
+                    </div>
+                    <div class="text-left md:text-right">
+                        <span class="inline-block px-4 py-1.5 rounded-xl text-xs font-black uppercase mb-2 border ${statusColor}">${m.status}</span>
+                        <p class="text-sm font-bold text-slate-600">${m.typeLabel}</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4 mt-6 pt-6 border-t-2 border-dashed border-slate-200">
+                    <div><p class="text-[10px] font-black text-slate-400 uppercase">วันที่สมัคร</p><p class="font-bold text-slate-700 text-base">${m.startDate}</p></div>
+                    <div class="text-right"><p class="text-[10px] font-black text-slate-400 uppercase">วันหมดอายุ</p><p class="font-black text-emerald-600 text-base">${m.expiryDate}</p></div>
+                </div>
+            </div>
+        `;
+
+        document.getElementById('updateInfoFormArea').innerHTML = `
+            <div class="bg-white rounded-[2.5rem] p-8 md:p-10 shadow-xl border border-slate-100 relative overflow-hidden mt-8">
+                <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-slate-800 to-slate-600"></div>
+                <h3 class="font-black text-lg text-slate-800 uppercase mb-6 flex items-center gap-3">
+                    <div class="p-2 bg-slate-100 rounded-lg"><i data-lucide="user-cog" class="w-5 h-5 text-slate-600"></i></div>
+                    ปรับปรุงข้อมูลส่วนตัว
+                </h3>
+                <div class="space-y-5">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div><label class="block text-xs font-extrabold text-slate-500 mb-2 ml-1">เบอร์โทรศัพท์</label><input type="tel" id="upd_phone" value="${m.phone}" class="w-full p-3.5 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold text-slate-700 outline-none transition-all"></div>
+                        <div><label class="block text-xs font-extrabold text-slate-500 mb-2 ml-1">อีเมล (Email)</label><input type="email" id="upd_email" value="${m.email}" class="w-full p-3.5 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold text-slate-700 outline-none transition-all"></div>
+                    </div>
+                    <div><label class="block text-xs font-extrabold text-slate-500 mb-2 ml-1">ที่อยู่ปัจจุบัน (สำหรับจัดส่งเอกสาร)</label><textarea id="upd_address" rows="2" class="w-full p-3.5 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold text-slate-700 outline-none transition-all leading-relaxed">${m.address}</textarea></div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                        <div><label class="block text-xs font-extrabold text-slate-500 mb-2 ml-1">อาชีพ</label><input type="text" id="upd_job" value="${m.job}" class="w-full p-3.5 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold text-slate-700 outline-none"></div>
+                        <div><label class="block text-xs font-extrabold text-slate-500 mb-2 ml-1">ตำแหน่ง</label><input type="text" id="upd_position" value="${m.position}" class="w-full p-3.5 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold text-slate-700 outline-none"></div>
+                        <div><label class="block text-xs font-extrabold text-slate-500 mb-2 ml-1">สถานที่ทำงาน</label><input type="text" id="upd_workplace" value="${m.workplace}" class="w-full p-3.5 bg-slate-50 border-2 border-slate-100 rounded-2xl font-bold text-slate-700 outline-none"></div>
+                    </div>
+                    <div class="mb-6 flex items-start bg-gray-50 p-4 rounded-lg border border-gray-200">
+                      <div class="flex items-center h-5 mt-1"><input id="pdpaConsent" type="checkbox" required class="w-5 h-5 text-emerald-600 bg-white border-gray-300 rounded cursor-pointer"></div>
+                      <div class="ml-3 text-sm"><label for="pdpaConsent" class="font-medium text-gray-700 cursor-pointer">ข้าพเจ้ายอมรับ <a href="javascript:void(0)" onclick="Swal.fire('นโยบายความเป็นส่วนตัว', 'ข้อมูลของท่านจะถูกเก็บรักษาความลับตาม PDPA', 'info')" class="text-blue-600 font-bold hover:underline">นโยบายความเป็นส่วนตัว</a></label></div>
+                    </div>
+                </div>
+                <button onclick="submitInfoUpdate()" class="w-full mt-8 bg-slate-800 hover:bg-black text-white font-black py-4 rounded-2xl shadow-xl transition-all transform hover:-translate-y-1 flex items-center justify-center gap-3">
+                    <i data-lucide="save" class="w-5 h-5"></i> บันทึกการเปลี่ยนแปลง
+                </button>
+            </div>
+        `;
+        lucide.createIcons();
+        drawInfoCard(m); 
+    }
+
+    function drawInfoCard(m) {
+        const canvas = document.getElementById('infoMemberCardCanvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+
+        function renderCard(logoImg) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const grad = ctx.createLinearGradient(0, 0, 600, 350);
+            if (m.typeLabel.includes('สามัญ')) { grad.addColorStop(0, '#991b1b'); grad.addColorStop(1, '#450a0a'); } 
+            else if (m.typeLabel.includes('กิตติมศักดิ์')) { grad.addColorStop(0, '#14532d'); grad.addColorStop(1, '#064e3b'); } 
+            else { grad.addColorStop(0, '#1e1b4b'); grad.addColorStop(1, '#312e81'); }
+            ctx.fillStyle = grad; ctx.beginPath(); ctx.roundRect(0, 0, 600, 350, 25); ctx.fill();
+
+            ctx.beginPath(); ctx.strokeStyle = "rgba(255,255,255,0.05)"; ctx.lineWidth = 60; ctx.arc(600, 350, 220, 0, Math.PI * 2); ctx.stroke();
+            ctx.beginPath(); ctx.strokeStyle = "rgba(255,255,255,0.03)"; ctx.lineWidth = 1;
+            for (let i = -100; i < 800; i += 15) { ctx.moveTo(i, 0); ctx.lineTo(i + 200, 350); } ctx.stroke();
+
+            if (logoImg && logoImg.complete && logoImg.naturalWidth > 0) {
+                ctx.save(); ctx.beginPath(); ctx.arc(517, 77, 47, 0, Math.PI * 2); ctx.clip(); ctx.drawImage(logoImg, 470, 30, 95, 95); ctx.restore();
+            } else {
+                ctx.fillStyle = "rgba(255,255,255,0.15)"; ctx.beginPath(); ctx.arc(517, 77, 47, 0, Math.PI * 2); ctx.fill();
+                ctx.fillStyle = "rgba(255,255,255,0.5)"; ctx.font = "bold 11px Sarabun"; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillText("มธ.", 517, 77); ctx.textAlign = "left"; ctx.textBaseline = "top";
+            }
+
+            ctx.textBaseline = "top"; ctx.fillStyle = "white"; ctx.font = "bold 22px Sarabun"; ctx.fillText("สมาคมนักศึกษาเก่าสังคมสงเคราะห์ศาสตร์ มธ.", 35, 45);
+            ctx.font = "13px Sarabun"; ctx.fillStyle = "rgba(255,255,255,0.6)"; ctx.fillText("TU SOCIAL ADMINISTRATION ALUMNI ASSOCIATION", 35, 75);
+            ctx.fillStyle = "white"; ctx.font = "38px Sarabun"; ctx.fillText(m.name, 35, 155);
+            ctx.font = "bold 64px Sarabun"; ctx.fillStyle = m.typeLabel.includes('สมทบ') ? "#f1f5f9" : "#fbbf24"; ctx.fillText(m.id || 'PENDING', 35, 200);
+            ctx.font = "bold 20px Sarabun"; ctx.fillStyle = "white"; ctx.fillText("ประเภท: " + m.typeLabel, 35, 288);
+            ctx.font = "15px Sarabun"; ctx.fillStyle = "rgba(255,255,255,0.8)";
+            const expiryDisplay = (m.typeLabel.includes('สามัญ') || m.typeLabel.includes('กิตติมศักดิ์')) ? 'ตลอดชีพ' : (m.expiryDate || '-');
+            ctx.fillText("สถานะ: " + m.status + " | หมดอายุ: " + expiryDisplay, 35, 316);
+        }
+
+        renderCard(null);
+        if (m.logoBase64) { const logo = new Image(); logo.onload = () => renderCard(logo); logo.src = m.logoBase64; }
+    }
+
+    function downloadInfoCard() {
+        const canvas = document.getElementById('infoMemberCardCanvas');
+        if(canvas) { const link = document.createElement('a'); link.download = `TU_Alumni_Card_${new Date().getTime()}.png`; link.href = canvas.toDataURL('image/png', 1.0); link.click(); }
+    }
+
+    async function submitInfoUpdate() {
+      if (!currentMemberData) return;
+      if (!document.getElementById('pdpaConsent').checked) return Swal.fire('เตือน', 'กรุณายอมรับเงื่อนไข', 'warning');
+
+      const data = {
+          sheetName: currentMemberData.sheetName, rowId: currentMemberData.rowId, id: currentMemberData.id, name: currentMemberData.name,
+          phone: document.getElementById('upd_phone').value, email: document.getElementById('upd_email').value, address: document.getElementById('upd_address').value,
+          job: document.getElementById('upd_job').value, position: document.getElementById('upd_position').value, workplace: document.getElementById('upd_workplace').value, slip: null
+      };
+
+      Swal.fire({ title: 'ยืนยันการบันทึก?', text: "ข้อมูลจะถูกอัปเดตทันที", icon: 'question', showCancelButton: true, confirmButtonColor: '#1e293b', confirmButtonText: 'ยืนยัน', cancelButtonText: 'ยกเลิก'
+      }).then(async (result) => {
+          if (result.isConfirmed) {
+              Swal.fire({ title: 'กำลังบันทึก...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
+              try {
+                  const res = await callAPI('updateMemberProfile', data);
+                  Swal.fire({ icon: 'success', title: 'เรียบร้อย', text: 'ข้อมูลได้รับการปรับปรุงแล้ว', confirmButtonColor: '#1e293b' });
+              } catch (err) { Swal.fire('ผิดพลาด', err.message, 'error'); }
+          }
+      });
+    }
+  </script>
 </body>
 </html>
